@@ -253,6 +253,18 @@ def main():
         # 읽기 전용 모드 테이블
         st.dataframe(
             filtered_df,
+            column_config={
+                "Start_Date": st.column_config.DateColumn(
+                    "시작일",
+                    width="small",
+                    format="YYYY-MM-DD",
+                ),
+                "End_Date": st.column_config.DateColumn(
+                    "종료일",
+                    width="small",
+                    format="YYYY-MM-DD",
+                ),
+            },
             use_container_width=True,
             hide_index=False,
             height=500,
