@@ -27,26 +27,37 @@ Streamlit의 다양한 위젯들을 활용하여 실용적인 데이터 관리 �
    - 요소 배치
 """
 
+# 페이지 기본 설정
+# 반드시 다른 Streamlit 명령어보다 먼저 실행되어야 함
 import streamlit as st
+
+st.set_page_config(
+    page_title="연구 프로젝트 관리 시스템",
+    page_icon="🔬",
+    layout="wide",  # 페이지를 wide 모드로 설정
+    initial_sidebar_state="expanded",  # 사이드바를 펼친 상태로 시작
+)
+
 import pandas as pd
 from config import DATA_PATH
+
 
 # 테이블 컬럼 설정
 # 편집 모드와 보기 모드에서 공통으로 사용할 컬럼 설정
 def get_column_config(is_edit_mode=False):
     """
     테이블의 컬럼 설정을 반환합니다.
-    
+
     각 컬럼의 특성에 맞는 적절한 컴포넌트를 설정합니다:
     - TextColumn: 일반 텍스트 입력
     - DateColumn: 날짜 선택기
     - NumberColumn: 숫자 입력 (포맷팅 가능)
     - ProgressColumn: 진행률 표시
     - SelectboxColumn: 드롭다운 선택
-    
+
     Args:
         is_edit_mode (bool): 편집 모드 여부. True일 경우 일부 컬럼이 선택 가능한 형태로 변경됩니다.
-    
+
     Returns:
         dict: 컬럼 설정 딕셔너리
     """
@@ -108,38 +119,42 @@ def get_column_config(is_edit_mode=False):
 
     # 편집 모드일 때는 선택 가능한 컬럼으로 변경
     if is_edit_mode:
-        base_config.update({
-            "Status": st.column_config.SelectboxColumn(
-                "상태",
-                width="small",
-                options=["진행중", "완료", "중단", "검토중", "준비중"],
-            ),
-            "Current_Phase": st.column_config.SelectboxColumn(
-                "현재단계",
-                width="small",
-                options=[
-                    "계획",
-                    "실험",
-                    "데이터수집",
-                    "분석",
-                    "검증",
-                    "논문작성",
-                    "특허출원",
-                ],
-            ),
-        })
+        base_config.update(
+            {
+                "Status": st.column_config.SelectboxColumn(
+                    "상태",
+                    width="small",
+                    options=["진행중", "완료", "중단", "검토중", "준비중"],
+                ),
+                "Current_Phase": st.column_config.SelectboxColumn(
+                    "현재단계",
+                    width="small",
+                    options=[
+                        "계획",
+                        "실험",
+                        "데이터수집",
+                        "분석",
+                        "검증",
+                        "논문작성",
+                        "특허출원",
+                    ],
+                ),
+            }
+        )
     else:
-        base_config.update({
-            "Status": st.column_config.TextColumn(
-                "상태",
-                width="small",
-            ),
-            "Current_Phase": st.column_config.TextColumn(
-                "현재단계",
-                width="small",
-            ),
-        })
-    
+        base_config.update(
+            {
+                "Status": st.column_config.TextColumn(
+                    "상태",
+                    width="small",
+                ),
+                "Current_Phase": st.column_config.TextColumn(
+                    "현재단계",
+                    width="small",
+                ),
+            }
+        )
+
     return base_config
 
 
@@ -147,13 +162,13 @@ def get_column_config(is_edit_mode=False):
 def load_data():
     """
     CSV 파일에서 데이터를 로드하고 전처리합니다.
-    
+
     주요 기능:
     1. CSV 파일 읽기 (pandas 사용)
     2. 날짜 데이터 변환 (datetime 형식으로)
     3. 결측치 처리 (빈 문자열로 대체)
-    4. 오류 처리 (파일이 없는 경우 등)
-    
+    4. 오류 리 (파일이 없는 경우 등)
+
     Returns:
         DataFrame: 전처리된 데이터프레임
         None: 오류 발생 시
@@ -176,14 +191,14 @@ def load_data():
 def save_data(df):
     """
     데이터프레임을 CSV 파일로 저장합니다.
-    
+
     주요 기능:
     1. 데이터프레임 복사 (원본 보존)
     2. 날짜 데이터를 문자열로 변환
     3. CSV 파일로 저장
     4. 캐시 초기화 (새로운 데이터 반영을 위해)
     5. 성공/실패 메시지 표시
-    
+
     Args:
         df (DataFrame): 저장할 데이터프레임
     """
@@ -201,7 +216,7 @@ def save_data(df):
 def main():
     """
     메인 애플리케이션 로직을 구현합니다.
-    
+
     주요 구성 요소:
     1. 페이지 제목 및 기본 설정
     2. 세션 상태 초기화 및 관리
@@ -210,7 +225,7 @@ def main():
     5. 데이터 필터링 로직
     6. 테이블 표시 (편집/보기 모드)
     7. 통계 정보 표시
-    
+
     Streamlit 위젯 사용법:
     - st.title(): 페이지 제목 설정
     - st.sidebar: 사이드바 영역 생성
@@ -234,9 +249,11 @@ def main():
 
     # 사이드바 필터 구현
     st.sidebar.header("필터")
-    departments = ["전체"] + sorted(st.session_state.data["Department"].unique().tolist())
+    departments = ["전체"] + sorted(
+        st.session_state.data["Department"].unique().tolist()
+    )
     statuses = ["전체"] + sorted(st.session_state.data["Status"].unique().tolist())
-    
+
     selected_dept = st.sidebar.selectbox("부서", departments)
     selected_status = st.sidebar.selectbox("상태", statuses)
 
@@ -269,8 +286,10 @@ def main():
         filtered_df = filtered_df[filtered_df["Department"] == selected_dept]
     if selected_status != "전체":
         filtered_df = filtered_df[filtered_df["Status"] == selected_status]
-    
-    display_columns = [col for col in st.session_state.data.columns if col not in hide_columns]
+
+    display_columns = [
+        col for col in st.session_state.data.columns if col not in hide_columns
+    ]
     filtered_df = filtered_df[display_columns]
 
     # 편집 모드 토글
