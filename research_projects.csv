@@ -1,5 +1,5 @@
 ﻿Project_ID,Project_Name,Principal_Investigator,Department,Start_Date,End_Date,Budget,Progress,Research_Area,Status,Current_Phase,Review_Comments,Action_Items
-PRJ-000,Research Project 1,나영석,컴퓨터공학과,2024-04-02,2025-02-13,313120000,67,나노기술,검토중,분석,검토중,
+PRJ-000,Research Project 1,나영석,컴퓨터공학과,2024-04-02,2025-02-13,313120000,67,나노기술,진행중,실험,검토중,
 PRJ-002,Research Project 2,최영호,전자공학과,2024-03-31,2025-08-23,152750000,44,양자컴퓨팅,진행중,계획,,
 PRJ-003,Research Project 3,임하늘,의학과,2024-06-27,2025-01-19,297600000,60,양자컴퓨팅,완료,실험,검토중,조치 완료
 PRJ-004,Research Project 4,윤지현,화학과,2024-06-29,2026-04-09,414610000,53,나노기술,준비중,논문작성,,조치 중
