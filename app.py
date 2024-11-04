@@ -183,10 +183,12 @@ def main():
                 "Start_Date": st.column_config.DateColumn(
                     "시작일",
                     width="small",
+                    format="YYYY-MM-DD",
                 ),
                 "End_Date": st.column_config.DateColumn(
                     "종료일",
                     width="small",
+                    format="YYYY-MM-DD",
                 ),
                 "Budget": st.column_config.NumberColumn(
                     "예산",
