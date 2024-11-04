@@ -13,6 +13,9 @@
 - `st.cache_data`를 통한 데이터 캐싱
 - 세션 상태(session state) 관리
 
+## 데모
+실제 동작하는 예제는 다음 [링크](https://pandas-edit-dashboard.streamlit.app/)에서 확인할 수 있습니다
+
 ## 주요 기능 구현
 
 1. **데이터 편집**
@@ -55,4 +58,4 @@ streamlit_table_dashboard/
 ## 참고 자료
 - [Streamlit 공식 문서](https://docs.streamlit.io/)
 - [st.data_editor API 참조](https://docs.streamlit.io/library/api-reference/data/st.data_editor)
-- [세션 상태 가이드](https://docs.streamlit.io/library/api-reference/session-state)# streamlit_table_dashboard
+- [세션 상태 가이드](https://docs.streamlit.io/library/api-reference/session-state)

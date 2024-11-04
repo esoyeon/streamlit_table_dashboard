@@ -34,7 +34,7 @@ ENV/
 .streamlit/
 
 # Data files
-*.csv
+
 *.xlsx
 *.db
 
